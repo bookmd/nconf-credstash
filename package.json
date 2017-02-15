@@ -1,0 +1,26 @@
+{
+  "name": "@bookmd/nconf-credstash",
+  "version": "0.0.1",
+  "description": "credstash plugin for nconf",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bookmd/nconf-credstash"
+  },
+  "author": "BookMD",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bookmd/nconf-credstash/issues"
+  },
+  "homepage": "",
+  "dependencies": {
+    "nconf": "^0.8.1",
+    "child_process": "latest"
+  },
+  "devDependencies": {
+    "jasmine": "^2.3.2"
+  }
+}
