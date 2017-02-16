@@ -38,7 +38,7 @@ The prefix should not be a part of the key in CredStash. "postgres:credstash_pas
 1. `separator` - a separator string for keys in CredStash. Requierd.
 2. `table` - The table in DynamoDB. The default is credential-store. Optional.
 3. `region` - AWS region. Optional.
-4. `context` - CredStash context object. Optional.
+4. `context` - [CredStash context object](https://github.com/fugue/credstash#controlling-and-auditing-secrets). Optional.
 
 ## Running tests
 The tests are writen in Jasmine.
