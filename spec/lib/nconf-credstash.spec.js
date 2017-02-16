@@ -6,7 +6,7 @@ var nconf;
 var credstash;
 
 var CredstashApi = require('../../lib/credstashApi');
-var credstashApi = new CredstashApi({});
+var credstashApi = new CredstashApi({ table: 'nconf-credstash-tests' });
 
 const values = ['my_mongo_password', 'my_postgres_password'];
 const keys = ['mongo.password', 'postgres.password'];

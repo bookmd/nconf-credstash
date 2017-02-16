@@ -5,7 +5,7 @@ var CredstashApi = require('../../lib/credstashApi');
 
 describe('CredstashApi', function() {
 
-  var api = new CredstashApi({});
+  var api = new CredstashApi({ table: 'nconf-credstash-tests' });
 
   function cleanup() {
     var store = api.getAll();
