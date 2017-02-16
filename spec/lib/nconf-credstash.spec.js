@@ -5,26 +5,23 @@
 var nconf;
 var credstash;
 
-var childProcess = require('child_process');
-
-const COMMAND = 'credstash';
+var CredstashApi = require('../../lib/credstashApi');
+var credstashApi = new CredstashApi({});
 
 const values = ['my_mongo_password', 'my_postgres_password'];
 const keys = ['mongo.password', 'postgres.password'];
 const confFile = './spec/lib/config.json';
 
 describe('nconf-credstash', function() {
-
   beforeAll(function() {
     for (var i=0; i<keys.length; i++) {
-      var result = childProcess.spawnSync(COMMAND, ['put', keys[i], values[i]]);
-      result = childProcess.spawnSync(COMMAND, ['getall']);
+      credstashApi.put(keys[i], values[i]);
     }
   });
 
   afterAll(function() {
     keys.forEach(function(key) {
-      childProcess.spawnSync(COMMAND, ['delete', key]);
+      credstashApi.delete(key);
     });
   });
 
@@ -36,12 +33,12 @@ describe('nconf-credstash', function() {
 
   });
 
-  it('should return the key postgres.credstash_password', function() {
+  it('returns the key postgres.credstash_password', function() {
     var password = nconf.get('postgres:credstash_password');
     expect(password).toEqual('my_postgres_password');
   });
 
-  it('should get the key from the store and not from CredStash', function() {
+  it('gets the key from the store and not from CredStash', function() {
     var beginTime = new Date().getTime();
     var password = nconf.get('postgres:credstash_password');
     var endTime = new Date().getTime();
@@ -50,7 +47,7 @@ describe('nconf-credstash', function() {
     expect(endTime-beginTime).toBeLessThan(10); // CredStash calls take seconds, so 10 milliseconds is small enough.
   });
 
-  it('should retrieve the entire configuration using nconf.get()', function() {
+  it('retrieves the entire configuration using nconf.get()', function() {
     var conf = nconf.get();
     var expected = {
       'foo': 'bar',
@@ -66,7 +63,7 @@ describe('nconf-credstash', function() {
     expect(conf).toEqual(expected);
   });
 
-  it('should skip keys that don\'t start with the prefix', function() {
+  it('skips keys that don\'t start with the prefix', function() {
     var beginTime = new Date().getTime();
     var bar = nconf.get('foo');
     var endTime = new Date().getTime();
@@ -75,7 +72,7 @@ describe('nconf-credstash', function() {
     expect(endTime-beginTime).toBeLessThan(10); // CredStash calls take seconds, so 10 milliseconds is small enough.
   });
 
-  it('should merge the configurations according to order of the stores', function() {
+  it('merges the configurations according to order of the stores', function() {
     nconf = new nconf.Provider(); // Recreate the nconf object, the same way it's being done on nconf.js
     nconf.Credstash = credstash; // Add again Credstash to the nconf object.
 
