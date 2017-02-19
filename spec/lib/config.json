@@ -1,0 +1,10 @@
+{
+  "foo": "bar",
+  "postgres": {
+    "url": "i am postgres url",
+    "credstash_password": ""
+  },
+  "mongo": {
+    "url": "i am mongo url"
+  }
+}
