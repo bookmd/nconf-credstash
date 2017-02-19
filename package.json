@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/bookmd/nconf-credstash/issues"
   },
-  "homepage": "https://github.com/bookmd/nconf-credstash#readme",,
+  "homepage": "https://github.com/bookmd/nconf-credstash#readme",
   "dependencies": {
     "nconf": "^0.8.1",
     "child_process": "latest"
