@@ -25,7 +25,7 @@ The store provided by `nconf-credstash` supports two ways of fetching secrets:
 1. `.get(key)` to fetch a specific key. For every call to `.get(key)` the store searches it's inner cache and only if the key doen't exist goes to CredStash to fetch it.
 2. `.get()` to fetch the entire store from CredStash. The store is cached for subsequent calls.
 
-All calls are synchronous, using node's abillity to spawn child processes synchronously.
+All calls are synchronous, using node's ability to spawn child processes synchronously.
 
 ### Providing a prefix
 A prefix can be used in order not to fetch unwanted keys, since each call to CredStash takes a few seconds.
