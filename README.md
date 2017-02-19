@@ -41,7 +41,7 @@ The prefix should not be a part of the key in CredStash. "postgres:credstash_pas
 4. `environment` - CredStash environment. Optional.
 
 ## Running tests
-The tests are writen in Jasmine.
+The tests are written in Jasmine.
 ``` bash
   $ npm test
 ```
