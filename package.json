@@ -1,5 +1,5 @@
 {
-  "name": "@bookmd/nconf-credstash",
+  "name": "nconf-credstash",
   "version": "0.0.1",
   "description": "credstash plugin for nconf",
   "main": "index.js",
