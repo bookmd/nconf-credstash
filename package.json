@@ -4,7 +4,7 @@
   "description": "credstash plugin for nconf",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine"
+    "test": "istanbul cover --include-all-sources ./node_modules/jasmine/bin/jasmine.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
     "child_process": "latest"
   },
   "devDependencies": {
-    "jasmine": "^2.3.2"
+    "jasmine": "^2.3.2",
+    "istanbul": "^0.4.0"
   }
 }
