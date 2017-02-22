@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/bookmd/nconf-credstash.svg?style=svg)](https://circleci.com/gh/bookmd/nconf-credstash)
+
 # nconf-credstash
 A [CredStash](https://github.com/fugue/credstash) store for [nconf](https://github.com/indexzero/nconf).
 Enabling managing secrets in CredStash and integrating them with nconf.
