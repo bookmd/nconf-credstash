@@ -4,7 +4,7 @@
   "description": "credstash plugin for nconf",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover --include-all-sources ./node_modules/jasmine/bin/jasmine.js"
+    "test": "istanbul cover ./node_modules/jasmine/bin/jasmine.js"
   },
   "repository": {
     "type": "git",
