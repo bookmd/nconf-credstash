@@ -6,14 +6,18 @@ var nconf;
 var credstash;
 
 var CredstashApi = require('../../lib/credstashApi');
-var credstashApi = new CredstashApi({ table: 'nconf-credstash-tests' });
+var credstashApi;
 
 const values = ['my_mongo_password', 'my_postgres_password'];
 const keys = ['mongo.password', 'postgres.password'];
 const confFile = './spec/lib/config.json';
+const TABLE_NAME = 'nconf-credstash-tests';
 
 describe('nconf-credstash', function() {
   beforeAll(function() {
+    credstashApi = new CredstashApi({ table: TABLE_NAME });
+    credstashApi.setup(); // create the test DDB table, if not created
+
     for (var i=0; i<keys.length; i++) {
       credstashApi.put(keys[i], values[i]);
     }
@@ -25,10 +29,10 @@ describe('nconf-credstash', function() {
     });
   });
 
-  beforeEach(function() {
+  beforeAll(function() {
     nconf = require('nconf');
     credstash = require('../../index');
-    nconf.use('credstash', { prefix: 'credstash_', separator: '.' })
+    nconf.use('credstash', { prefix: 'credstash_', separator: '.', table: TABLE_NAME })
     .file({ file: confFile });
 
   });
@@ -77,7 +81,7 @@ describe('nconf-credstash', function() {
     nconf.Credstash = credstash; // Add again Credstash to the nconf object.
 
     nconf.file({ file: confFile })
-    .use('credstash', { prefix: 'credstash_', separator: '.' });
+    .use('credstash', { prefix: 'credstash_', separator: '.', table: TABLE_NAME });
 
     var expected = {
       'foo': 'bar',
