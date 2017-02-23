@@ -1,0 +1,17 @@
+machine:
+  node:
+    version: 5.5.0
+
+dependencies:
+  pre:
+    - sudo apt-get install build-essential libssl-dev libffi-dev python-dev
+    - pip install credstash
+    - credstash setup
+
+test:
+  override:
+    - npm test
+
+general:
+  artifacts:
+    - ./coverage
