@@ -2,7 +2,7 @@
   "foo": "bar",
   "postgres": {
     "url": "i am postgres url",
-    "credstash_password": ""
+    "password": "CREDSTASH"
   },
   "mongo": {
     "url": "i am mongo url"
