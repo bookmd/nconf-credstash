@@ -21,6 +21,11 @@ require('nconf-credstash');
 
 nconf.use('nconf-credstash', { key: 'KEY' });
 ```
+
+### Using a docker container.
+
+To use a credstash on another machine have an environment variable, CREDSTASH_HOST, which can be resolved to the machines IP address set. If this exists, credstashApi requests will attempt to ssh into specified machine and run command.
+
 ### Fetching secrets
 The store provided by `nconf-credstash` supports two ways of fetching secrets:
 
