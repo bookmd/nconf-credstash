@@ -13,7 +13,7 @@ dependencies:
 test:
   override:
     - docker run -itd -p 24:24 -e SSH_PORT=24 --env-file <(env | grep AWS) -v ~/.ssh/id_rsa.pub:/root/.ssh/authorized_keys --name credstash_host bookmd/docker-credstash-host
-    - docker exec credstash_host credstash setup
+    - sudo lxc-attach -n "$(docker inspect --format "{{.Id}}" credstash_host)" -- bash -c credstash setup
     - CREDSTAH_HOST=localhost
     - npm test
 
