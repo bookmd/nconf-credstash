@@ -92,14 +92,14 @@ describe('CredstashApi', function() {
 
       var apiLocal = {};
       apiLocal.api1 = api1;
-      apiLocal.api1 = api2;
+      apiLocal.api2 = api2;
 
       api1 = new CredstashApi({ table: 'firstTable', allowRemote: true });
       api2 = new CredstashApi({ table: 'secondTable', allowRemote: true });
 
       var apiRemote = {};
       apiLocal.api1 = api1;
-      apiLocal.api1 = api2;
+      apiLocal.api2 = api2;
 
       api.push(apiLocal);
       api.push(apiRemote);
@@ -135,14 +135,14 @@ describe('CredstashApi', function() {
 
       var apiLocal = {};
       apiLocal.api1 = api1;
-      apiLocal.api1 = api2;
+      apiLocal.api2 = api2;
 
       api1 = new CredstashApi({ table: TABLE_NAME, context: { env: 'test1', allowRemote: true } });
       api2 = new CredstashApi({ table: TABLE_NAME, context: { env: 'test2', allowRemote: true } });
 
       var apiRemote = {};
       apiLocal.api1 = api1;
-      apiLocal.api1 = api2;
+      apiLocal.api2 = api2;
 
       api.forEach(function(credstash){
         // put a value on the first table
