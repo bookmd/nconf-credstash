@@ -2,7 +2,7 @@
 [![CircleCI](https://circleci.com/gh/bookmd/nconf-credstash.svg?style=svg)](https://circleci.com/gh/bookmd/nconf-credstash)
 
 A [CredStash](https://github.com/fugue/credstash) store for [nconf](https://github.com/indexzero/nconf).
-Enabling managing secrets in CredStash and integrating them with nconf.
+Enabling managing secrets in CredStash, either locally or on a remote host, and integrating them with nconf.
 
 ## Installation
 ### Setup CredStash
@@ -22,7 +22,7 @@ require('nconf-credstash');
 nconf.use('nconf-credstash', { key: 'KEY' });
 ```
 
-### Using a docker container.
+### Using a docker container
 
 To use a credstash on another machine have an environment variable, CREDSTASH_HOST, which can be resolved to the machines IP address set. If this exists, credstashApi requests will attempt to ssh into specified machine and run command.
 
