@@ -104,7 +104,14 @@ describe('CredstashApi', function() {
       api.push(apiLocal);
       api.push(apiRemote);
 
+      var i = 1;
+console.log("api");
+        console.log(api);
+
       api.forEach(function(credstash){
+        console.log(i);
+        console.log(credstash);
+        
         // set up credstash
         credstash.api1.setup();
         credstash.api2.setup();
