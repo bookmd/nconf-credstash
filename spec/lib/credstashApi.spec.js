@@ -21,6 +21,7 @@ describe('CredstashApi', function() {
     api.forEach(function(credstashApi) {
       credstashApi.setup();
     });
+    api = [];
   });
 
   afterEach(function() {
@@ -77,6 +78,10 @@ describe('CredstashApi', function() {
     var api2;
     const FIRST_TABLE_KEY = 'only_on_first_table';
     const SECOND_TABLE_KEY = 'only_on_second_table';
+
+    beforeEach(function() {
+      api = [];
+    });
 
     afterEach(function() {
       api.forEach(function(credstashApi) {
