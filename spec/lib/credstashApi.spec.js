@@ -144,6 +144,9 @@ describe('CredstashApi', function() {
       apiRemote.api1 = api1;
       apiRemote.api2 = api2;
 
+      api.push(apiLocal);
+      api.push(apiRemote);
+
       api.forEach(function(credstash){
         // put a value on the first table
         credstash.api1.put(FIRST_TABLE_KEY, FIRST_TABLE_KEY);
