@@ -4,7 +4,13 @@ machine:
 
 dependencies:
   pre:
-    - sudo apt-get install build-essential libssl-dev libffi-dev python-dev
+    - sudo apt-get install docker openssh-client build-essential libssl-dev libffi-dev python-dev
+    - mkdir ~/.ssh
+    - echo "$SSH_ID_RSA" > ~/.ssh/id_rsa
+    - echo "$SSH_ID_RSA_PUB" > ~/.ssh/id_rsa.pub
+    - docker run -itd -p 22:22 --rm --env-file <(env | grep AWS) -v ~/.ssh/id_rsa.pub:/root/.ssh/authorized_keys --name credstash_host bookmd/docker-credstash-host
+    - docker exec credstash_host credstash setup
+    - CREDSTAH_HOST=localhost
     - pip install credstash
     - credstash setup
 
