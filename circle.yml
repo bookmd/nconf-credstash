@@ -1,18 +1,20 @@
 machine:
   node:
-    version: 5.5.0
+    version: 5.5.0  
+  services:
+    -docker
 
 dependencies:
   pre:
-    - sudo apt-get install docker openssh-client build-essential libssl-dev libffi-dev python-dev
-    - docker run -itd -p 22:22 --env-file <(env | grep AWS) -v ~/.ssh/id_rsa.pub:/root/.ssh/authorized_keys --name credstash_host bookmd/docker-credstash-host
-    - docker exec credstash_host credstash setup
-    - CREDSTAH_HOST=localhost
+    - sudo apt-get install openssh-client build-essential libssl-dev libffi-dev python-dev
     - pip install credstash
     - credstash setup
 
 test:
   override:
+    - docker run -itd -p 22:22 --env-file <(env | grep AWS) -v ~/.ssh/id_rsa.pub:/root/.ssh/authorized_keys --name credstash_host bookmd/docker-credstash-host
+    - docker exec credstash_host credstash setup
+    - CREDSTAH_HOST=localhost
     - npm test
 
 general:
