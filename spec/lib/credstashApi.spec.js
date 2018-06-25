@@ -39,6 +39,26 @@ describe('CredstashApi', function() {
     });
   });
 
+  describe('put, get, put to another value, get and delete', function() {
+      it('puts a value into CredStash, gets it, updates it, gets it and deletes it', function() {
+          var value = 'initialValue';
+          var value2 = 'updatedValue';
+          var key = 'key';
+
+          api.put(key, value);
+          var returned = api.get(key);
+          expect(returned).toEqual(value);
+
+          api.put(key,value2);
+          var returned2 = api.get(key);
+          expect(returned2).toEqual(value2);
+
+          api.delete(key);
+          var shouldNotBeUndefined = api.get(key);
+          expect(shouldNotBeUndefined).not.toBeDefined();
+      });
+  });
+
   describe('put, getAll and delete', function() {
     it('puts 2 values into CredStash, gets them and deletes them', function() {
       var expected = {
