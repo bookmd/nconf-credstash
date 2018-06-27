@@ -1,6 +1,6 @@
 {
   "name": "nconf-credstash",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "credstash plugin for nconf",
   "main": "index.js",
   "scripts": {
