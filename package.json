@@ -20,7 +20,7 @@
     "child_process": "latest",
     "commander": "^2.15.1",
     "lodash": "^4.17.4",
-    "nconf": "^0.8.1"
+    "nconf": "^0.10.0"
   },
   "devDependencies": {
     "jasmine": "^2.3.2",
