@@ -4,7 +4,7 @@ machine:
 
 dependencies:
   pre:
-    - sudo apt-get install build-essential libssl-dev libffi-dev python-dev
+    - sudo apt-get install -y --fix-missing build-essential libssl-dev libffi-dev python-dev
     - pip install credstash
     - credstash setup
 
