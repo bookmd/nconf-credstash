@@ -1,6 +1,6 @@
 {
   "name": "nconf-credstash",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "credstash plugin for nconf",
   "main": "index.js",
   "scripts": {
@@ -18,8 +18,9 @@
   "homepage": "https://github.com/bookmd/nconf-credstash#readme",
   "dependencies": {
     "child_process": "latest",
+    "commander": "^2.15.1",
     "lodash": "^4.17.4",
-    "nconf": "^0.8.1"
+    "nconf": "^0.10.0"
   },
   "devDependencies": {
     "jasmine": "^2.3.2",
