@@ -46,14 +46,14 @@ function _printToConsoleWithJsonFormatting(object) {
 }
 
 function getValue(region = undefined, table, appKey = undefined, key = undefined) {
-    this.credStashApi = new CredstashApi({table: table, region: region});
+    const credStashApi = new CredstashApi({table: table, region: region});
     let storedValue = null;
 
     if (appKey === undefined) {
-        storedValue = _interactWithApi(this.credStashApi, this.credStashApi.getAll);
+        storedValue = _interactWithApi(credStashApi, credStashApi.getAll);
         Object.keys(storedValue).forEach((key) => _convertObjectJsonPropertyToObject(storedValue, key));
     } else {
-        storedValue = _interactWithApi(this.credStashApi, this.credStashApi.get, appKey);
+        storedValue = _interactWithApi(credStashApi, credStashApi.get, appKey);
         storedValue = (storedValue !== undefined) ? JSON.parse(storedValue) : storedValue;
     }
 
@@ -73,14 +73,14 @@ function putValue(region = undefined, table, appKey, key, value) {
         }
     }
 
-    this.credStashApi = new CredstashApi({table: table, region: region});
-    let storedValue = _interactWithApi(this.credStashApi, this.credStashApi.get, appKey);
+    const credStashApi = new CredstashApi({table: table, region: region});
+    let storedValue = _interactWithApi(credStashApi, credStashApi.get, appKey);
     storedValue = (storedValue === undefined) ? {} : JSON.parse(storedValue);
 
-    let oldValue = _.get(storedValue, key, undefined);
+    const oldValue = _.get(storedValue, key, undefined);
     storedValue = _.set(storedValue, key, value);
-    _interactWithApi(this.credStashApi, this.credStashApi.put, [appKey, JSON.stringify(storedValue)]);
-    storedValue = JSON.parse(_interactWithApi(this.credStashApi, this.credStashApi.get, appKey));
+    _interactWithApi(credStashApi, credStashApi.put, [appKey, JSON.stringify(storedValue)]);
+    storedValue = JSON.parse(_interactWithApi(credStashApi, credStashApi.get, appKey));
 
     return {
         path: `${table}.${appKey}.${key}:`,
@@ -90,13 +90,13 @@ function putValue(region = undefined, table, appKey, key, value) {
 }
 
 function deleteApp(region = undefined, table, appKey) {
-    this.credStashApi = new CredstashApi({table: table, region: region});
-    this.credStashApi.delete(appKey);
+    const credStashApi = new CredstashApi({table: table, region: region});
+    credStashApi.delete(appKey);
 }
 
 function setupTable(region = undefined, table) {
-    this.credStashApi = new CredstashApi({table: table, region: region});
-    this.credStashApi.setup();
+    const credStashApi = new CredstashApi({table: table, region: region});
+    credStashApi.setup();
 }
 
 program
