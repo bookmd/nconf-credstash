@@ -8,6 +8,12 @@ const program = require('commander');
 const _ = require('lodash');
 const CredstashApi = require('../lib/credstashApi');
 
+function _checkIfProfileSpecified(cmd) {
+    if (cmd.profile === undefined) {
+        throw new Error('-p <profile> is required!');
+    }
+}
+
 function _interactWithApi(credstashApiInstance, apiFunc, funcArgs) {
     try {
         if (funcArgs) {
@@ -45,8 +51,9 @@ function _printToConsoleWithJsonFormatting(object) {
     }
 }
 
-function getValue(region = undefined, table, appKey = undefined, key = undefined) {
-    const credStashApi = new CredstashApi({table: table, region: region});
+function getValue(cmd, table, appKey = undefined, key = undefined) {
+    const { region, profile } = cmd;
+    const credStashApi = new CredstashApi({table: table, profile: profile, region: region});
     let storedValue = null;
 
     if (appKey === undefined) {
@@ -64,7 +71,7 @@ function getValue(region = undefined, table, appKey = undefined, key = undefined
     return storedValue;
 }
 
-function putValue(region = undefined, table, appKey, key, value) {
+function putValue(cmd, table, appKey, key, value) {
     if (value.charAt(0) === '{') {
         try {
             value = JSON.parse(value);
@@ -73,7 +80,8 @@ function putValue(region = undefined, table, appKey, key, value) {
         }
     }
 
-    const credStashApi = new CredstashApi({table: table, region: region});
+    const { region, profile } = cmd;
+    const credStashApi = new CredstashApi({table: table, profile: profile, region: region});
     let storedValue = _interactWithApi(credStashApi, credStashApi.get, appKey);
     storedValue = (storedValue === undefined) ? {} : JSON.parse(storedValue);
 
@@ -89,13 +97,15 @@ function putValue(region = undefined, table, appKey, key, value) {
     };
 }
 
-function deleteApp(region = undefined, table, appKey) {
-    const credStashApi = new CredstashApi({table: table, region: region});
+function deleteApp(cmd, table, appKey) {
+    const { region, profile } = cmd;
+    const credStashApi = new CredstashApi({table: table, profile: profile, region: region});
     credStashApi.delete(appKey);
 }
 
-function setupTable(region = undefined, table) {
-    const credStashApi = new CredstashApi({table: table, region: region});
+function setupTable(cmd, table) {
+    const { region, profile } = cmd;
+    const credStashApi = new CredstashApi({table: table, profile: profile, region: region});
     credStashApi.setup();
 }
 
@@ -103,40 +113,50 @@ program
     .command('setup <table>')
     .description('Creates a table in Credstash')
     .option("-r, --region <region>", "The AWS region to work against")
+    .option("-p, --profile <profile>", "The AWS profile to use")
     .action(function(table, cmd) {
-        _printToConsoleWithJsonFormatting(setupTable(cmd.region, table));
+        _checkIfProfileSpecified(cmd);
+        _printToConsoleWithJsonFormatting(setupTable(cmd, table));
     });
 
 program
     .command('get <table> <appKey> [key]')
     .description('Read the value of a key in CredStash')
     .option("-r, --region <region>", "The AWS region to work against")
+    .option("-p, --profile <profile>", "The AWS profile to use")
     .action(function (table, appKey, key, cmd) {
-        _printToConsoleWithJsonFormatting(getValue(cmd.region, table, appKey, key));
+        _checkIfProfileSpecified(cmd);
+        _printToConsoleWithJsonFormatting(getValue(cmd, table, appKey, key));
     });
 
 program
     .command('getall <table>')
     .description('Read all the values of an appKey in CredStash')
     .option("-r, --region <region>", "The AWS region to work against")
+    .option("-p, --profile <profile>", "The AWS profile to use")
     .action(function (table, cmd) {
-        _printToConsoleWithJsonFormatting(getValue(cmd.region, table));
+        _checkIfProfileSpecified(cmd);
+        _printToConsoleWithJsonFormatting(getValue(cmd, table));
     });
 
 program
     .command('put <table> <appKey> <key> <value>')
     .description('Puts the value of a key in CredStash')
     .option("-r, --region <region>", "The AWS region to work against")
+    .option("-p, --profile <profile>", "The AWS profile to use")
     .action(function(table, appKey, key, value, cmd) {
-        _printToConsoleWithJsonFormatting(putValue(cmd.region, table, appKey, key, value));
+        _checkIfProfileSpecified(cmd);
+        _printToConsoleWithJsonFormatting(putValue(cmd, table, appKey, key, value));
     });
 
 program
     .command('delete <table> <appKey>')
     .description('Delete an app from CredStash')
     .option("-r, --region <region>", "The AWS region to work against")
+    .option("-p, --profile <profile>", "The AWS profile to use")
     .action(function (table, appKey, cmd) {
-        _printToConsoleWithJsonFormatting(deleteApp(cmd.region, table, appKey));
+        _checkIfProfileSpecified(cmd);
+        _printToConsoleWithJsonFormatting(deleteApp(cmd, table, appKey));
     });
 
 program.parse(process.argv);
