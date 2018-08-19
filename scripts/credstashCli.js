@@ -52,8 +52,9 @@ function _printToConsoleWithJsonFormatting(object) {
 }
 
 function getValue(cmd, table, appKey = undefined, key = undefined) {
-    const { region, profile } = cmd;
-    const credStashApi = new CredstashApi({table: table, profile: profile, region: region});
+    const credStashApi = new CredstashApi(
+      { table: table, profile: cmd.profile, region: cmd.region }
+      );
     let storedValue = null;
 
     if (appKey === undefined) {
@@ -80,8 +81,9 @@ function putValue(cmd, table, appKey, key, value) {
         }
     }
 
-    const { region, profile } = cmd;
-    const credStashApi = new CredstashApi({table: table, profile: profile, region: region});
+    const credStashApi = new CredstashApi(
+      { table: table, profile: cmd.profile, region: cmd.region }
+      );
     let storedValue = _interactWithApi(credStashApi, credStashApi.get, appKey);
     storedValue = (storedValue === undefined) ? {} : JSON.parse(storedValue);
 
@@ -98,14 +100,16 @@ function putValue(cmd, table, appKey, key, value) {
 }
 
 function deleteApp(cmd, table, appKey) {
-    const { region, profile } = cmd;
-    const credStashApi = new CredstashApi({table: table, profile: profile, region: region});
+    const credStashApi = new CredstashApi(
+      { table: table, profile: cmd.profile, region: cmd.region }
+      );
     credStashApi.delete(appKey);
 }
 
 function setupTable(cmd, table) {
-    const { region, profile } = cmd;
-    const credStashApi = new CredstashApi({table: table, profile: profile, region: region});
+    const credStashApi = new CredstashApi(
+      { table: table, profile: cmd.profile, region: cmd.region }
+      );
     credStashApi.setup();
 }
 

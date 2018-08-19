@@ -6,16 +6,17 @@
 const CredstashCli = require('../../scripts/credstashCli');
 const TABLE_NAME = 'nconf-credstash-tests';
 
+// the empty object is instead of the commander Command object
 describe('CredstashCli', function() {
     function cleanup() {
-        let store = CredstashCli.getValue(undefined, TABLE_NAME);
+        let store = CredstashCli.getValue({}, TABLE_NAME);
         Object.keys(store).forEach(function(key) {
-            CredstashCli.deleteApp(undefined, TABLE_NAME, key);
+            CredstashCli.deleteApp({}, TABLE_NAME, key);
         });
     }
 
     beforeAll(function() {
-        CredstashCli.setupTable(undefined, TABLE_NAME);
+        CredstashCli.setupTable({}, TABLE_NAME);
     });
 
     afterAll(function() {
@@ -27,12 +28,12 @@ describe('CredstashCli', function() {
             let value = 'value';
             let key = 'key';
 
-            CredstashCli.putValue(undefined, TABLE_NAME, key, key, value);
-            let returned = CredstashCli.getValue(undefined, TABLE_NAME, key, key);
+            CredstashCli.putValue({}, TABLE_NAME, key, key, value);
+            let returned = CredstashCli.getValue({}, TABLE_NAME, key, key);
             expect(returned).toEqual(value);
-            CredstashCli.deleteApp(undefined, TABLE_NAME, key);
+            CredstashCli.deleteApp({}, TABLE_NAME, key);
 
-            let shouldNotBeUndefined = CredstashCli.getValue(undefined, TABLE_NAME, key, key);
+            let shouldNotBeUndefined = CredstashCli.getValue({}, TABLE_NAME, key, key);
             expect(shouldNotBeUndefined).not.toBeDefined();
         });
     });
@@ -43,16 +44,16 @@ describe('CredstashCli', function() {
             let value2 = 'updatedValue';
             let key = 'key';
 
-            let l = CredstashCli.putValue(undefined, TABLE_NAME, key, key, value);
-            let returned = CredstashCli.getValue(undefined, TABLE_NAME, key, key);
+            let l = CredstashCli.putValue({}, TABLE_NAME, key, key, value);
+            let returned = CredstashCli.getValue({}, TABLE_NAME, key, key);
             expect(returned).toEqual(value);
 
-            l = CredstashCli.putValue(undefined, TABLE_NAME, key, key, value2);
-            let returned2 = CredstashCli.getValue(undefined, TABLE_NAME, key, key);
+            l = CredstashCli.putValue({}, TABLE_NAME, key, key, value2);
+            let returned2 = CredstashCli.getValue({}, TABLE_NAME, key, key);
             expect(returned2).toEqual(value2);
 
-            CredstashCli.deleteApp(undefined, TABLE_NAME, key);
-            let shouldNotBeUndefined = CredstashCli.getValue(undefined, TABLE_NAME, key);
+            CredstashCli.deleteApp({}, TABLE_NAME, key);
+            let shouldNotBeUndefined = CredstashCli.getValue({}, TABLE_NAME, key);
             expect(shouldNotBeUndefined).not.toBeDefined();
         });
     });
@@ -66,16 +67,16 @@ describe('CredstashCli', function() {
             let key = 'key';
 
             Object.keys(expected).forEach(function(jsonKey) {
-                CredstashCli.putValue(undefined, TABLE_NAME, key, jsonKey, expected[jsonKey]);
+                CredstashCli.putValue({}, TABLE_NAME, key, jsonKey, expected[jsonKey]);
             });
 
 
-            let returned = CredstashCli.getValue(undefined, TABLE_NAME, key);
+            let returned = CredstashCli.getValue({}, TABLE_NAME, key);
             expect(returned).toEqual(expected);
 
-            CredstashCli.deleteApp(undefined, TABLE_NAME, key);
+            CredstashCli.deleteApp({}, TABLE_NAME, key);
 
-            let shouldBeUndefined  = CredstashCli.getValue(undefined, TABLE_NAME, key);
+            let shouldBeUndefined  = CredstashCli.getValue({}, TABLE_NAME, key);
             expect(shouldBeUndefined).not.toBeDefined();
         });
     });
