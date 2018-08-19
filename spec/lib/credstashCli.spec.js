@@ -1,8 +1,5 @@
 "use strict";
 
-/**
- * Created by idanziv on 06/26/2018.
- */
 const CredstashCli = require('../../scripts/credstashCli');
 const TABLE_NAME = 'nconf-credstash-tests';
 
