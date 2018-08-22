@@ -6,6 +6,7 @@ dependencies:
   pre:
     - sudo apt-get update
     - sudo apt-get install -y --fix-missing build-essential libssl-dev libffi-dev python-dev
+    - pip install --upgrade setuptools==18.5
     - pip install credstash
     - credstash setup
 
