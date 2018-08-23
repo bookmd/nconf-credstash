@@ -36,6 +36,7 @@ All calls are synchronous, using node's ability to spawn child processes synchro
 2. `table` - The table in DynamoDB. The default is credential-store. Optional.
 3. `region` - AWS region. Optional.
 4. `context` - [CredStash context object](https://github.com/fugue/credstash#controlling-and-auditing-secrets). Optional.
+5. `profile` - AWS role as defined in local credentials file
 
 ## Running tests
 The tests are written in Jasmine.
